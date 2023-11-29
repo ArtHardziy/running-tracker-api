@@ -1,4 +1,4 @@
-package de.bergmann.runningtracker.model;
+package de.bergmann.runnertracker.model;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static de.bergmann.runningtracker.model.Permission.*;
+import static de.bergmann.runnertracker.model.Permission.*;
 
 
 @Getter

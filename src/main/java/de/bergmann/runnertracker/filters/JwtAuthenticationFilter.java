@@ -1,7 +1,7 @@
-package de.bergmann.runningtracker.filters;
+package de.bergmann.runnertracker.filters;
 
-import de.bergmann.runningtracker.service.JwtService;
-import de.bergmann.runningtracker.service.UserService;
+import de.bergmann.runnertracker.service.JwtService;
+import de.bergmann.runnertracker.service.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

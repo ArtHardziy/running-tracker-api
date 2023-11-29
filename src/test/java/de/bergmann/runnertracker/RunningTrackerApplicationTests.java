@@ -1,4 +1,4 @@
-package de.bergmann.runningtracker;
+package de.bergmann.runnertracker;
 
 import org.springframework.boot.test.context.SpringBootTest;
 

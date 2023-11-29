@@ -1,4 +1,4 @@
-package de.bergmann.runningtracker.model;
+package de.bergmann.runnertracker.model;
 
 import jakarta.persistence.*;
 import lombok.Data;

@@ -1,12 +1,12 @@
-package de.bergmann.runningtracker.service;
+package de.bergmann.runnertracker.service;
 
-import de.bergmann.runningtracker.model.Role;
-import de.bergmann.runningtracker.model.RoleType;
-import de.bergmann.runningtracker.model.RunningTrackerUser;
-import de.bergmann.runningtracker.model.RunningTrackerUserPrincipal;
-import de.bergmann.runningtracker.model.dto.JwtAuthenticationResponse;
-import de.bergmann.runningtracker.model.dto.SignInRequest;
-import de.bergmann.runningtracker.model.dto.SignUpRequest;
+import de.bergmann.runnertracker.model.Role;
+import de.bergmann.runnertracker.model.RoleType;
+import de.bergmann.runnertracker.model.RunningTrackerUser;
+import de.bergmann.runnertracker.model.RunningTrackerUserPrincipal;
+import de.bergmann.runnertracker.model.dto.JwtAuthenticationResponse;
+import de.bergmann.runnertracker.model.dto.SignInRequest;
+import de.bergmann.runnertracker.model.dto.SignUpRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.AuthorizationServiceException;
 import org.springframework.security.authentication.AuthenticationManager;

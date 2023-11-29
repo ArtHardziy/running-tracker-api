@@ -15,3 +15,7 @@ token:
     expirationms: 360000
     secret:
         key: fcb913a281ec15b9a1a83015aad8f61b9a450cca2595ab4dc831fb32a6864c1f
+
+api:
+    version: 0.0.1-SNAPSHOT
+    description: runner tracking app

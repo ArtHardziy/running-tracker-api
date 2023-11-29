@@ -1,7 +1,7 @@
-package de.bergmann.runningtracker.config;
+package de.bergmann.runnertracker.config;
 
-import de.bergmann.runningtracker.filters.JwtAuthenticationFilter;
-import de.bergmann.runningtracker.service.UserService;
+import de.bergmann.runnertracker.filters.JwtAuthenticationFilter;
+import de.bergmann.runnertracker.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -40,7 +40,7 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(httpReq -> httpReq
                         .requestMatchers(HttpMethod.POST, "/v1/signin*", "/v1/signup").permitAll()
-                        .requestMatchers("/actuator**").permitAll()
+                        .requestMatchers("/actuator**", "v3/api-docs**", "swagger-ui/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .authenticationProvider(authenticationProvider())

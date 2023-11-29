@@ -1,4 +1,4 @@
-package de.bergmann.runningtracker.model.dto;
+package de.bergmann.runnertracker.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,9 +7,13 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class SignInRequest {
+@NoArgsConstructor
+public class SignUpRequest {
     private String username;
     private String password;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private int age;
 }

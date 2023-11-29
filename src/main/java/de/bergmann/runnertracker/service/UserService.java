@@ -1,7 +1,7 @@
-package de.bergmann.runningtracker.service;
+package de.bergmann.runnertracker.service;
 
-import de.bergmann.runningtracker.model.RunningTrackerUser;
-import de.bergmann.runningtracker.repositories.UserRepo;
+import de.bergmann.runnertracker.model.RunningTrackerUser;
+import de.bergmann.runnertracker.repositories.UserRepo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.security.core.userdetails.UserDetailsService;

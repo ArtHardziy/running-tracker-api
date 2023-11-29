@@ -1,9 +1,9 @@
-package de.bergmann.runningtracker.controller;
+package de.bergmann.runnertracker.controller;
 
-import de.bergmann.runningtracker.model.dto.JwtAuthenticationResponse;
-import de.bergmann.runningtracker.model.dto.SignInRequest;
-import de.bergmann.runningtracker.model.dto.SignUpRequest;
-import de.bergmann.runningtracker.service.AuthenticationService;
+import de.bergmann.runnertracker.model.dto.JwtAuthenticationResponse;
+import de.bergmann.runnertracker.model.dto.SignInRequest;
+import de.bergmann.runnertracker.model.dto.SignUpRequest;
+import de.bergmann.runnertracker.service.AuthenticationService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

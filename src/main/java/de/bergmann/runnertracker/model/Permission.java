@@ -1,4 +1,4 @@
-package de.bergmann.runningtracker.model;
+package de.bergmann.runnertracker.model;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

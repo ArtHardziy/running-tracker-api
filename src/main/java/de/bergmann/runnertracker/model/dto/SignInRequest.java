@@ -1,4 +1,4 @@
-package de.bergmann.runningtracker.model.dto;
+package de.bergmann.runnertracker.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class JwtAuthenticationResponse {
-    private String token;
+public class SignInRequest {
+    private String username;
+    private String password;
 }

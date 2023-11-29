@@ -1,4 +1,4 @@
-package de.bergmann.runningtracker.service;
+package de.bergmann.runnertracker.service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
