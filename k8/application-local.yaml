@@ -1,0 +1,9 @@
+spring:
+  profiles:
+    active: dev
+  datasource:
+    url: jdbc:postgresql://localhost:5436/marathon
+    password: trackme
+  jpa:
+    hibernate:
+      ddl-auto: create-drop

@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: running-tracker
+data:
+  application-dev.yaml: |-
+    spring:
+    datasource:
+      url: ${datasourceUrl}
+      password: ${datasourcePass}
