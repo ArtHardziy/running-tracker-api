@@ -19,3 +19,6 @@ token:
 api:
     version: 0.0.1-SNAPSHOT
     description: runner tracking app
+logging:
+    level:
+        runnertracker: debug

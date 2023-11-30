@@ -11,5 +11,7 @@ public interface RunningTrackerUserRepo extends JpaRepository<RunningTrackerUser
 
     Optional<RunningTrackerUser> findUserByUsername(String username);
 
+    Optional<RunningTrackerUser> findById(long id);
+
     Optional<RunningTrackerUser> findUserByEmail(String email);
 }

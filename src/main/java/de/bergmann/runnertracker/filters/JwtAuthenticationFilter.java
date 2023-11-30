@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 
@@ -30,7 +31,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,
                                     @NonNull HttpServletResponse response,
-                                    @NonNull  FilterChain filterChain) throws ServletException, IOException {
+                                    @NonNull FilterChain filterChain) throws ServletException, IOException {
         var authHeader = request.getHeader("Authorization");
         if (ObjectUtils.isEmpty(authHeader) || !StringUtils.startsWithIgnoreCase(authHeader, "Bearer")) {
             filterChain.doFilter(request, response);
@@ -38,19 +39,24 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
         var jwt = authHeader.substring(7);
         log.debug("JWT - {}", jwt);
-        var username = jwtService.extractUsername(jwt);
-        if (!username.isEmpty() && SecurityContextHolder.getContext().getAuthentication() == null) {
-            var loadedUser = runningTrackerUserService.getUserDetailsService().loadUserByUsername(username);
-            if (jwtService.isTokenValid(jwt, loadedUser)) {
-                log.debug("User - {}", loadedUser);
-                var securityContext = SecurityContextHolder.createEmptyContext();
-                var authToken = new UsernamePasswordAuthenticationToken(
-                        loadedUser, null, loadedUser.getAuthorities()
-                );
-                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                securityContext.setAuthentication(authToken);
-                SecurityContextHolder.setContext(securityContext);
+        try {
+            var username = jwtService.extractUsername(jwt);
+            if (!username.isEmpty() && SecurityContextHolder.getContext().getAuthentication() == null) {
+                var loadedUser = runningTrackerUserService.getUserDetailsService().loadUserByUsername(username);
+                if (jwtService.isTokenValid(jwt, loadedUser)) {
+                    log.debug("User - {}", loadedUser);
+                    var securityContext = SecurityContextHolder.createEmptyContext();
+                    var authToken = new UsernamePasswordAuthenticationToken(
+                            loadedUser, null, loadedUser.getAuthorities()
+                    );
+                    authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                    securityContext.setAuthentication(authToken);
+                    SecurityContextHolder.setContext(securityContext);
+                }
             }
+        } catch (ResponseStatusException ex) {
+            response.sendError(ex.getStatusCode().value(), ex.getMessage());
+            return;
         }
         filterChain.doFilter(request, response);
     }

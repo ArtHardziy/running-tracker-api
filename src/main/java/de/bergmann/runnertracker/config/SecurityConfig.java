@@ -9,6 +9,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -40,9 +41,10 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(httpReq -> httpReq
                         .requestMatchers(HttpMethod.POST, "/v1/signin*", "/v1/signup").permitAll()
-                        .requestMatchers("/actuator**", "v3/api-docs**", "swagger-ui/**").permitAll()
+                        .requestMatchers("/actuator**", "v3/api-docs**", "swagger-ui/**", "/error**").permitAll()
                         .anyRequest().authenticated()
                 )
+                .exceptionHandling(Customizer.withDefaults())
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

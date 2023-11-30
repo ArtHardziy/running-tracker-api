@@ -8,11 +8,18 @@ import de.bergmann.runnertracker.model.dto.JwtAuthenticationResponse;
 import de.bergmann.runnertracker.model.dto.SignInRequest;
 import de.bergmann.runnertracker.model.dto.SignUpRequest;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AuthorizationServiceException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.text.DateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 @Service
 @AllArgsConstructor
@@ -37,13 +44,22 @@ public class AuthenticationService {
                 .lastName(signUpRequest.getLastName())
                 .username(signUpRequest.getUsername())
                 .email(signUpRequest.getEmail())
-                .age(signUpRequest.getAge())
                 .password(passwordEncoder.encode(signUpRequest.getPassword()))
+                .birthDate(resolveBirthDate(signUpRequest.getBirthDate()))
                 .role(role)
                 .build();
         userToSignUp = runningTrackerUserService.save(userToSignUp);
         var jwt = jwtService.generateToken(RunningTrackerUserPrincipal.create(userToSignUp));
         return JwtAuthenticationResponse.builder().token(jwt).build();
+    }
+
+    private LocalDate resolveBirthDate(String birthdateString) {
+        try {
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            return LocalDate.parse(birthdateString, dateTimeFormatter);
+        } catch (DateTimeParseException ex) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Format of birth date must much 'dd-MM-yyyy'");
+        }
     }
 
     public JwtAuthenticationResponse signin(SignInRequest request) {
@@ -53,7 +69,7 @@ public class AuthenticationService {
                         request.getPassword()
                 ));
         var signUpUser = runningTrackerUserService.findUserByUsername(request.getUsername())
-                .orElseThrow(() -> new IllegalArgumentException("Invalid username or password"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid username or password"));
 
         var jwt = jwtService.generateToken(RunningTrackerUserPrincipal.create(signUpUser));
         return JwtAuthenticationResponse.builder().token(jwt).build();
