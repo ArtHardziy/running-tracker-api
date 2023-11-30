@@ -1,7 +1,7 @@
 package de.bergmann.runnertracker.config;
 
 import de.bergmann.runnertracker.filters.JwtAuthenticationFilter;
-import de.bergmann.runnertracker.service.UserService;
+import de.bergmann.runnertracker.service.RunningTrackerUserService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,7 +26,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @AllArgsConstructor
 public class SecurityConfig {
 
-    private final UserService userService;
+    private final RunningTrackerUserService runningTrackerUserService;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @Bean
@@ -52,7 +52,7 @@ public class SecurityConfig {
     public AuthenticationProvider authenticationProvider() {
         var authenticationProvider = new DaoAuthenticationProvider();
         authenticationProvider.setPasswordEncoder(passwordEncoder());
-        authenticationProvider.setUserDetailsService(userService.getUserDetailsService());
+        authenticationProvider.setUserDetailsService(runningTrackerUserService.getUserDetailsService());
         return authenticationProvider;
     }
 

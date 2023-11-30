@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class AuthenticationService {
 
-    private UserService userService;
+    private RunningTrackerUserService runningTrackerUserService;
     private PasswordEncoder passwordEncoder;
     private JwtService jwtService;
     private AuthenticationManager authenticationManager;
@@ -26,7 +26,7 @@ public class AuthenticationService {
 
     public JwtAuthenticationResponse signup(SignUpRequest signUpRequest) {
         var requestUsername = signUpRequest.getUsername();
-        if (userService.findUserByUsername(requestUsername).isPresent()) {
+        if (runningTrackerUserService.findUserByUsername(requestUsername).isPresent()) {
             throw new AuthorizationServiceException(String.format("User %s already exist!", requestUsername));
         }
         var role = new Role();
@@ -41,7 +41,7 @@ public class AuthenticationService {
                 .password(passwordEncoder.encode(signUpRequest.getPassword()))
                 .role(role)
                 .build();
-        userToSignUp = userService.save(userToSignUp);
+        userToSignUp = runningTrackerUserService.save(userToSignUp);
         var jwt = jwtService.generateToken(RunningTrackerUserPrincipal.create(userToSignUp));
         return JwtAuthenticationResponse.builder().token(jwt).build();
     }
@@ -52,7 +52,7 @@ public class AuthenticationService {
                         request.getUsername(),
                         request.getPassword()
                 ));
-        var signUpUser = userService.findUserByUsername(request.getUsername())
+        var signUpUser = runningTrackerUserService.findUserByUsername(request.getUsername())
                 .orElseThrow(() -> new IllegalArgumentException("Invalid username or password"));
 
         var jwt = jwtService.generateToken(RunningTrackerUserPrincipal.create(signUpUser));

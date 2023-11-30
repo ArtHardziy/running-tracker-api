@@ -1,7 +1,7 @@
 package de.bergmann.runnertracker.filters;
 
 import de.bergmann.runnertracker.service.JwtService;
-import de.bergmann.runnertracker.service.UserService;
+import de.bergmann.runnertracker.service.RunningTrackerUserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,7 +25,7 @@ import java.io.IOException;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
-    private final UserService userService;
+    private final RunningTrackerUserService runningTrackerUserService;
 
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,
@@ -40,7 +40,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         log.debug("JWT - {}", jwt);
         var username = jwtService.extractUsername(jwt);
         if (!username.isEmpty() && SecurityContextHolder.getContext().getAuthentication() == null) {
-            var loadedUser = userService.getUserDetailsService().loadUserByUsername(username);
+            var loadedUser = runningTrackerUserService.getUserDetailsService().loadUserByUsername(username);
             if (jwtService.isTokenValid(jwt, loadedUser)) {
                 log.debug("User - {}", loadedUser);
                 var securityContext = SecurityContextHolder.createEmptyContext();
