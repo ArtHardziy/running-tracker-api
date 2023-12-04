@@ -1,25 +1,23 @@
 package de.bergmann.runnertracker.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "users")
-public class RunningTrackerUser {
+@Table(name = "running_tracker_users")
+@ToString
+public class RunnerUser {
 
     @Id
     @GeneratedValue
@@ -29,7 +27,7 @@ public class RunningTrackerUser {
     @Column(name = "last_name")
     private String lastName;
     @Column(name = "birth_date")
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
     private String username;
     private String email;
@@ -41,6 +39,14 @@ public class RunningTrackerUser {
     private LocalDateTime updatedAt;
     @Enumerated(EnumType.STRING)
     private Sex sex;
+
+    @OneToMany(
+            mappedBy = "runningUser",
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Run> runs;
 
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.role.getRoleType().getAuthorities().stream().toList();

@@ -1,6 +1,7 @@
 package de.bergmann.runnertracker;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.info.Contact;
 import io.swagger.v3.oas.annotations.info.Info;
@@ -12,7 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @OpenAPIDefinition(
-        info =@Info(
+        info = @Info(
                 title = "Runner Tracker Api",
                 version = "${api.version}",
                 contact = @Contact(
@@ -28,10 +29,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
         )
 )
 @SecurityScheme(
-        name = "Bearer Authentication",
+        name = "bearer-key",
         type = SecuritySchemeType.HTTP,
         bearerFormat = "JWT",
-        scheme = "bearer"
+        scheme = "bearer",
+        in = SecuritySchemeIn.HEADER
 )
 public class RunnerTrackerApplication {
 

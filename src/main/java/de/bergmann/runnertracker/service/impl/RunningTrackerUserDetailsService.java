@@ -1,19 +1,19 @@
-package de.bergmann.runnertracker.service;
+package de.bergmann.runnertracker.service.impl;
 
 import de.bergmann.runnertracker.model.RunningTrackerUserPrincipal;
-import de.bergmann.runnertracker.repositories.RunningTrackerUserRepo;
+import de.bergmann.runnertracker.repositories.RunningTrackerUserRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 @AllArgsConstructor
-public class DefaultUserDetailsService implements UserDetailsService {
+public class RunningTrackerUserDetailsService implements UserDetailsService {
 
-    private RunningTrackerUserRepo runningTrackerUserRepo;
+    private RunningTrackerUserRepository runningTrackerUserRepo;
 
     @Override
     @Transactional

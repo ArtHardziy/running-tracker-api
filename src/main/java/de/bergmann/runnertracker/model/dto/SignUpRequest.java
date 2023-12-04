@@ -1,5 +1,6 @@
 package de.bergmann.runnertracker.model.dto;
 
+import de.bergmann.runnertracker.model.Sex;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,4 +17,5 @@ public class SignUpRequest {
     private String lastName;
     private String email;
     private String birthDate;
+    private Sex sex;
 }

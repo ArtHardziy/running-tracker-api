@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 
 import static de.bergmann.runnertracker.model.Permission.*;
 
-
 @Getter
 @RequiredArgsConstructor
 public enum RoleType {
@@ -19,12 +18,12 @@ public enum RoleType {
     )),
     ADMIN(
             Set.of(
-            READ, WRITE, DELETE
+                    READ, WRITE, DELETE
             )
     ),
     MANAGER(
             Set.of(
-            READ, WRITE
+                    READ, WRITE
             )
     );
 

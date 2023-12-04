@@ -1,53 +1,23 @@
 package de.bergmann.runnertracker.service;
 
-import de.bergmann.runnertracker.model.RunningTrackerUser;
-import de.bergmann.runnertracker.model.dto.RunningTrackerUserDTO;
-import de.bergmann.runnertracker.repositories.RunningTrackerUserRepo;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import org.springframework.http.HttpStatus;
+import de.bergmann.runnertracker.model.RunnerUser;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-@Service
-@AllArgsConstructor
-public class RunningTrackerUserService {
-    
-    private RunningTrackerUserRepo runningTrackerUserRepo;
-    @Getter
-    private UserDetailsService userDetailsService;
+public interface RunningTrackerUserService {
+    RunnerUser save(RunnerUser userToSave);
 
+    List<RunnerUser> findAll();
 
-    public RunningTrackerUser save(RunningTrackerUser userToSave) {
-        if (userToSave.getId() == null) {
-            userToSave.setCreatedAt(LocalDateTime.now());
-        }
-        userToSave.setUpdatedAt(LocalDateTime.now());
-        return runningTrackerUserRepo.save(userToSave);
-    }
+    RunnerUser findById(long id);
 
-    public List<RunningTrackerUser> findAll() {
-        return runningTrackerUserRepo.findAll();
-    }
+    Optional<RunnerUser> findUserByUsername(String username);
 
-    public Optional<RunningTrackerUser> findById(final long id) {
-        return runningTrackerUserRepo.findById(id);
-    }
+    long countAllUsers();
 
-    public Optional<RunningTrackerUser> findUserByUsername(String username) {
-        return runningTrackerUserRepo.findUserByUsername(username);
-    }
+    void deleteById(Long id);
 
-    public long countAllUsers() {
-        return runningTrackerUserRepo.count();
-    }
-
-    public void deleteById(Long id) {
-        runningTrackerUserRepo.deleteById(id);
-    }
+    UserDetailsService getUserDetailsService();
 }

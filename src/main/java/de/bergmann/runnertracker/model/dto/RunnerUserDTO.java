@@ -13,8 +13,8 @@ import java.time.LocalDate;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RunningTrackerUserDTO {
-    private long id;
+public class RunnerUserDTO {
+    private Long id;
     private String firstName;
     private String lastName;
     private String username;

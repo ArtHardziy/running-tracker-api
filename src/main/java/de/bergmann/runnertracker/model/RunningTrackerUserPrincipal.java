@@ -24,16 +24,16 @@ public class RunningTrackerUserPrincipal implements UserDetails {
     private String password;
     private Collection<? extends GrantedAuthority> authorities;
 
-    public static RunningTrackerUserPrincipal create(RunningTrackerUser runningTrackerUser) {
+    public static RunningTrackerUserPrincipal create(RunnerUser runnerUser) {
         List<? extends GrantedAuthority> authorities = Collections
                 .singletonList(new SimpleGrantedAuthority("ROLE_USER"));
-        if (Objects.nonNull(runningTrackerUser.getRole())) {
-            authorities = runningTrackerUser.getAuthorities().stream().toList();
+        if (Objects.nonNull(runnerUser.getRole())) {
+            authorities = runnerUser.getAuthorities().stream().toList();
         }
-        return new RunningTrackerUserPrincipal(runningTrackerUser.getId(),
-                runningTrackerUser.getEmail(),
-                runningTrackerUser.getUsername(),
-                runningTrackerUser.getPassword(),
+        return new RunningTrackerUserPrincipal(runnerUser.getId(),
+                runnerUser.getEmail(),
+                runnerUser.getUsername(),
+                runnerUser.getPassword(),
                 authorities);
     }
 
