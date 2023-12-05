@@ -2,7 +2,7 @@ spring:
   profiles:
     active: dev
   datasource:
-    url: jdbc:postgresql://localhost:5436/marathon
+    url: jdbc:postgresql://db:5432/marathon
     password: trackme
   jpa:
     hibernate:
