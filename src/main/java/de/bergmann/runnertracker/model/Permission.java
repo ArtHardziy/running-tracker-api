@@ -11,9 +11,9 @@ public enum Permission {
     WRITE("WRITE"),
     DELETE("DELETE");
 
-    private final String permission;
+    private final String action;
 
     public SimpleGrantedAuthority getAuthority() {
-        return new SimpleGrantedAuthority(this.getPermission());
+        return new SimpleGrantedAuthority(this.getAction());
     }
 }

@@ -27,12 +27,13 @@ public class SeedDataConfig implements CommandLineRunner {
             var adminRole = new Role();
             adminRole.setRoleType(RoleType.ADMIN);
             var dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            var adminpass = System.getProperty("admin.pass");
             var admin = RunnerUser.builder()
                     .firstName("Admin")
                     .lastName("Admin")
                     .username("admin")
                     .email("admin@admin.com")
-                    .password(passwordEncoder.encode("admin"))
+                    .password(passwordEncoder.encode(adminpass))
                     .role(adminRole)
                     .birthDate(LocalDate.parse("2002-05-07", dateFormat))
                     .build();

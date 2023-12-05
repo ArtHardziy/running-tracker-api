@@ -2,7 +2,9 @@ Running tracker service
 
 to start app use env vars below:
 
-``-Dspring.profiles.active=dev -Dspring.config.location=classpath:application.yml;file:k8/application-local.yaml``
+``-Dspring.profiles.active=dev
+-Dspring.config.location=classpath:application.yml;file:k8/application-local.yaml
+-Dadmin.pass=admin``
 
 or use docker:
 

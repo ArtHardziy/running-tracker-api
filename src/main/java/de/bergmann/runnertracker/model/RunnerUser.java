@@ -3,7 +3,7 @@ package de.bergmann.runnertracker.model;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -48,7 +48,7 @@ public class RunnerUser {
     )
     private List<Run> runs;
 
-    public Collection<? extends GrantedAuthority> getAuthorities() {
+    public Collection<SimpleGrantedAuthority> getAuthorities() {
         return this.role.getRoleType().getAuthorities().stream().toList();
     }
 

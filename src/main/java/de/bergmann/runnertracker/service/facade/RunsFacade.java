@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -50,7 +49,7 @@ public class RunsFacade {
         LocalDateTime startDateTime = run.getStartDateTime();
         LocalDateTime finishDateTime = run.getFinishDateTime();
         Duration duration = Duration.between(startDateTime, finishDateTime);
-        return (double) duration.getSeconds();
+        return duration.getSeconds();
     }
 
     public List<RunDto> findRunsByUserIdBetweenDates(Long id, LocalDate fromDateTime, LocalDate toDateTime) {
