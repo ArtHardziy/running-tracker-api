@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  app:
+    image: 'bergmann/running-tracker:latest'
+    build:
+      context: .
+    container_name: running-tracker
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/marathon
+      - SPRING_DATASOURCE_USERNAME=running-tracker
+      - SPRING_DATASOURCE_PASSWORD=runRun
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    ports:
+      - "8080:8080"
+
+  db:
+    image: postgres:13-alpine
+    container_name: db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./init-scripts:/docker-entrypoint-initdb.d
+    environment:
+      POSTGRES_DB: fe_marketplace
+      POSTGRES_USER: running-tracker
+      POSTGRES_PASSWORD: runRun
+
+volumes:
+  postgres-data:
